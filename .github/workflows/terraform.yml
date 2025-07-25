@@ -29,13 +29,13 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1  # Change if needed
+        aws-region: ap-south-1  # Update if you're provisioning in Mumbai
 
     - name: Terraform Init
       run: terraform init
 
     - name: Terraform Format Check
-      run: terraform fmt -check
+      run: terraform fmt -check -recursive
 
     - name: Terraform Validate
       run: terraform validate
@@ -43,7 +43,11 @@ jobs:
     - name: Terraform Plan
       run: terraform plan
 
-    - name: Terraform destroy (auto-approve)
-      if: github.ref == 'refs/heads/main'
-      run: terraform destroy -auto-approve
+    # Optional: run `terraform apply` if needed for auto-deploy
+    # - name: Terraform Apply
+    #   if: github.ref == 'refs/heads/main'
+    #   run: terraform apply -auto-approve
 
+    - name: Terraform Destroy (auto-approve)
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: terraform destroy -auto-approve
