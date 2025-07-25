@@ -39,14 +39,15 @@ server {
     index index.html;
 
     location / {
-        try_files \$uri \$uri/ =404;
-    }
+         try_files $uri $uri/ =404;
+}
 
     location = /health {
         access_log off;
         return 200 'OK';
         add_header Content-Type text/plain;
     }
+
 }
 EOT
 
