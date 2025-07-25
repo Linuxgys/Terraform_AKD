@@ -45,5 +45,5 @@ jobs:
 
     - name: Terraform destroy (auto-approve)
       if: github.ref == 'refs/heads/main'
-      run: terraform distroy -auto-approve
+      run: terraform destroy -auto-approve
 
