@@ -15,6 +15,6 @@ resource "aws_lb_target_group" "web_tg" {
 }
 resource "aws_lb_target_group_attachment" "web_attachment" {
   target_group_arn = aws_lb_target_group.web_tg.arn
-  target_id        = aws_instance.Web_test[0].id  # Replace with your actual EC2 resource name
+  target_id        = aws_instance.Web_test[0].id # Replace with your actual EC2 resource name
   port             = 80
 }
