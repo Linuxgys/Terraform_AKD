@@ -1,11 +1,11 @@
 resource "aws_instance" "Web_test" {
-  ami           = "ami-0bdea0bb64cf0f044"
-  instance_type = "t2.micro"
-  #count                       = 1
+  ami                         = "ami-0bdea0bb64cf0f044"
+  instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.public_subnet1.id
   vpc_security_group_ids      = [aws_security_group.web_sg.id]
   associate_public_ip_address = true
   key_name                    = "terraform"
+
 
   user_data = <<EOF
 #!/bin/bash
@@ -58,7 +58,7 @@ systemctl restart nginx
 EOF
 
   tags = {
-    Name = "Web-${count.index + 1}"
+    Name = "Web-1"
     OS   = "Ubuntu"
     Env  = "Dev"
   }
