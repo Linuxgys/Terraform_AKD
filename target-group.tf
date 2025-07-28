@@ -13,3 +13,8 @@ resource "aws_lb_target_group" "web_tg" {
     unhealthy_threshold = 2
   }
 }
+resource "aws_lb_target_group_attachment" "web_attachment" {
+  target_group_arn = aws_lb_target_group.web_tg.arn
+  target_id        = aws_instance.web.id # Replace with your actual EC2 resource name
+  port             = 80
+}
