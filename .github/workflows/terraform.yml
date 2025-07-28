@@ -44,10 +44,7 @@ jobs:
       run: terraform plan
 
     # Optional: run `terraform apply` if needed for auto-deploy
-    # - name: Terraform Apply
-    #   if: github.ref == 'refs/heads/main'
-    #   run: terraform apply -auto-approve
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'
+      run: terraform apply -auto-approve
 
-    - name: Terraform Destroy (auto-approve)
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: terraform destroy -auto-approve
