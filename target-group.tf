@@ -16,6 +16,6 @@ resource "aws_lb_target_group" "web_tg" {
 
 resource "aws_lb_target_group_attachment" "web_attachment" {
   target_group_arn = aws_lb_target_group.web_tg.arn
-  target_id        = aws_instance.Web_test.id # No [0] unless using count or for_each
+  target_id        = aws_instance.Web_test[0].id # No [0] unless using count or for_each
   port             = 80
 }
