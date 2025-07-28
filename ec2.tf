@@ -1,6 +1,6 @@
 resource "aws_instance" "Web_test" {
-  ami                         = "ami-0bdea0bb64cf0f044"
-  instance_type               = "t2.micro"
+  ami           = "ami-0bdea0bb64cf0f044"
+  instance_type = "t2.micro"
   #count                       = 1
   subnet_id                   = aws_subnet.public_subnet1.id
   vpc_security_group_ids      = [aws_security_group.web_sg.id]
