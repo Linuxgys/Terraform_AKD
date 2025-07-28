@@ -12,9 +12,10 @@ resource "aws_lb" "web_alb" {
 }
 
 resource "aws_lb_listener" "http_redirect" {
-  load_balancer_arn = aws_lb.myalb.arn # Replace with your ALB resource name
+  load_balancer_arn = aws_lb.web_alb.arn
   port              = 80
   protocol          = "HTTP"
+
   default_action {
     type = "redirect"
 
@@ -25,4 +26,5 @@ resource "aws_lb_listener" "http_redirect" {
     }
   }
 }
+
 
