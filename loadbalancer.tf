@@ -40,7 +40,7 @@ resource "aws_lb_listener" "https_listener" {
   }
 }
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.main_alb.arn
+  load_balancer_arn = aws_lb.web_alb.arn
   port              = 80
   protocol          = "HTTP"
 
