@@ -1,26 +1,37 @@
 name: Terraform Destroy
 
 on:
-  workflow_dispatch:  # Manually triggered
+  workflow_dispatch:   # 👈 Manual trigger only
 
 jobs:
-  destroy:
+  terraform-destroy:
+    name: Terraform Destroy
     runs-on: ubuntu-latest
 
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: ap-south-1
+    if: github.ref == 'refs/heads/Ec2_with_ALB_SSL'   # 👈 Only runs on this branch
+
+    defaults:
+      run:
+        shell: bash
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.8.3
 
-      - name: Terraform Init
-        run: terraform init
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-south-1  # update if different
 
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve
