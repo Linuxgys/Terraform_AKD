@@ -45,6 +45,6 @@ jobs:
 
     # Optional: run `terraform apply` if needed for auto-deploy
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/'Ec2_with_ALB_SSL'
       run: terraform apply -auto-approve
 
